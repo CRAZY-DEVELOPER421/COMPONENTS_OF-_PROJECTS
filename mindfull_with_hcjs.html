@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breez - Mindfulness for Everyone</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Avenir', 'Helvetica', sans-serif;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 60px;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 20px;
+            color: #4a5568;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #4a5568;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(7px, 7px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #4a5568;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .btn-login {
+            background: none;
+            border: none;
+            color: #4a5568;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 8px 20px;
+        }
+
+        .btn-signup {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            padding: 80px 60px;
+            background: linear-gradient(to bottom, #ffffff 0%, #f7fafc 100%);
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 48px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: #2d3748;
+            font-weight: 300;
+        }
+
+        .hero-content p {
+            font-size: 16px;
+            color: #718096;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        .btn-primary {
+            background: #2d3748;
+            color: white;
+            padding: 14px 35px;
+            border-radius: 25px;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .testimonial {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #718096;
+            font-size: 13px;
+        }
+
+        .testimonial-icon {
+            width: 30px;
+            height: 30px;
+            background: #f093fb;
+            border-radius: 50%;
+        }
+
+        .hero-image {
+            position: relative;
+            height: 500px;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 50%, #ff9a9e 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .browser-mockup {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            width: 80%;
+        }
+
+        .mockup-header {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 20px;
+        }
+
+        .mockup-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #e2e8f0;
+        }
+
+        .mockup-content {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .mockup-person {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+        }
+
+        /* Experience Section */
+        .experience {
+            text-align: center;
+            padding: 80px 60px;
+            background: #edf2f7;
+        }
+
+        .experience h2 {
+            font-size: 40px;
+            margin-bottom: 15px;
+            font-weight: 300;
+            color: #2d3748;
+        }
+
+        .experience-subtitle {
+            color: #718096;
+            margin-bottom: 60px;
+            font-size: 16px;
+        }
+
+        .experience-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .exp-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .exp-card-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .exp-card h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            font-weight: 500;
+            color: #2d3748;
+        }
+
+        .exp-card p {
+            color: #718096;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        /* Meditate Section */
+        .meditate {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            padding: 80px 60px;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .meditate-image {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            height: 500px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .meditate-mockup {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            width: 250px;
+            height: 350px;
+        }
+
+        .meditate-person {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            border-radius: 10px;
+        }
+
+        .meditate-content h2 {
+            font-size: 40px;
+            margin-bottom: 15px;
+            font-weight: 300;
+            color: #2d3748;
+        }
+
+        .meditate-content h3 {
+            font-size: 18px;
+            color: #718096;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        .meditate-content p {
+            color: #718096;
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        /* Plans Section */
+        .plans {
+            padding: 80px 60px;
+            background: linear-gradient(to bottom, #edf2f7 0%, #e6fffa 100%);
+        }
+
+        .plans-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .plans-info h2 {
+            font-size: 40px;
+            margin-bottom: 20px;
+            font-weight: 300;
+            color: #2d3748;
+        }
+
+        .plans-info p {
+            color: #718096;
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        .plans-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .plan-card {
+            background: #2d3748;
+            color: white;
+            padding: 40px 30px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .plan-card h3 {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .plan-card p {
+            font-size: 13px;
+            color: #a0aec0;
+            margin-bottom: 20px;
+        }
+
+        .plan-price {
+            font-size: 60px;
+            font-weight: 300;
+            margin-bottom: 30px;
+            color: #f093fb;
+        }
+
+        .btn-plan {
+            border: 1px solid white;
+            background: transparent;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 15px 20px;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 70%;
+                max-width: 300px;
+                background: white;
+                flex-direction: column;
+                gap: 0;
+                padding: 80px 30px 30px 30px;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+                transition: right 0.4s ease;
+                z-index: 1000;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links li {
+                width: 100%;
+                padding: 15px 0;
+                border-bottom: 1px solid #edf2f7;
+            }
+
+            .nav-links a {
+                display: block;
+                font-size: 16px;
+            }
+
+            .nav-buttons {
+                margin-right: 15px;
+            }
+
+            .btn-login {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+
+            .btn-signup {
+                padding: 8px 18px;
+                font-size: 12px;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+                padding: 40px 20px;
+                gap: 30px;
+            }
+
+            .hero-content h1 {
+                font-size: 32px;
+            }
+
+            .hero-image {
+                height: 350px;
+            }
+
+            .browser-mockup {
+                width: 90%;
+                padding: 20px 15px;
+            }
+
+            .experience {
+                padding: 50px 20px;
+            }
+
+            .experience h2 {
+                font-size: 28px;
+            }
+
+            .experience-cards {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .meditate {
+                grid-template-columns: 1fr;
+                padding: 50px 20px;
+                gap: 30px;
+            }
+
+            .meditate-image {
+                height: 400px;
+            }
+
+            .meditate-content h2 {
+                font-size: 28px;
+            }
+
+            .plans {
+                padding: 50px 20px;
+            }
+
+            .plans-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .plans-info h2 {
+                font-size: 28px;
+            }
+
+            .plans-cards {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 26px;
+            }
+
+            .experience h2,
+            .meditate-content h2,
+            .plans-info h2 {
+                font-size: 24px;
+            }
+
+            .plan-price {
+                font-size: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <div class="logo-icon"></div>
+            <span>BREEZ</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#classes">Classes</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="nav-buttons">
+            <button class="btn-login">Log In</button>
+            <button class="btn-signup">Sign Up</button>
+        </div>
+        <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Mindfulness<br>for Everyone,<br>Anywhere</h1>
+            <p>I'm a paragraph. Click here to add your own text and edit me. It's a great place to tell your story and let your users know a little more about you.</p>
+            <a href="#" class="btn-primary">Join Now</a>
+            <div class="testimonial">
+                <div class="testimonial-icon"></div>
+                <span>"Best app for mindfulness!"</span>
+            </div>
+        </div>
+        <div class="hero-image">
+            <div class="browser-mockup">
+                <div class="mockup-header">
+                    <div class="mockup-dot"></div>
+                    <div class="mockup-dot"></div>
+                    <div class="mockup-dot"></div>
+                </div>
+                <div class="mockup-content">
+                    <div class="mockup-person"></div>
+                    <div class="mockup-person"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="experience">
+        <h2>The Breez Experience</h2>
+        <p class="experience-subtitle">Enjoy guided mindfulness and meditation classes online.<br>Practice with us as much as you want on any digital device.</p>
+        <div class="experience-cards">
+            <div class="exp-card">
+                <div class="exp-card-image"></div>
+                <h3>A Global Network<br>of Teachers</h3>
+                <p>I'm a paragraph. Click here to add your own text and edit me. It's a great place to tell your story and let your users know a little more about you.</p>
+            </div>
+            <div class="exp-card">
+                <div class="exp-card-image"></div>
+                <h3>Different Styles for All<br>Ages and Levels</h3>
+                <p>I'm a paragraph. Click here to add your own text and edit me. It's a great place to tell your story and let your users know a little more about you.</p>
+            </div>
+            <div class="exp-card">
+                <div class="exp-card-image"></div>
+                <h3>Livestream Classes</h3>
+                <p>I'm a paragraph. Click here to add your own text and edit me. It's a great place to tell your story and let your users know a little more about you.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="meditate">
+        <div class="meditate-image">
+            <div class="meditate-mockup">
+                <div class="meditate-person"></div>
+            </div>
+        </div>
+        <div class="meditate-content">
+            <h2>Meditate<br>Together Online</h2>
+            <h3>Everything Is Better When Shared,<br>Including Meditation</h3>
+            <p>I'm a paragraph. Click here to add your own text and edit me. I'm a great place for you to tell a story and let your users know a little more about you. You'll get support and connection you need in your practicing mindfulness and help you develop a habit.</p>
+            <a href="#" class="btn-primary">Book Now</a>
+        </div>
+    </section>
+
+    <section class="plans">
+        <div class="plans-container">
+            <div class="plans-info">
+                <h2>Our Plans</h2>
+                <p>Choose a plan and get a 14-day trial for free. Enjoy unlimited access to our online classes and workshops. Cancel anytime.</p>
+            </div>
+            <div class="plans-cards">
+                <div class="plan-card">
+                    <h3>MONTHLY PLAN</h3>
+                    <p>Cancel Anytime</p>
+                    <div class="plan-price">$29</div>
+                    <button class="btn-plan">See More</button>
+                </div>
+                <div class="plan-card">
+                    <h3>YEARLY PLAN</h3>
+                    <p>Limited Offer: 20% Off</p>
+                    <div class="plan-price">$250</div>
+                    <button class="btn-plan">See More</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Hamburger Menu Toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when clicking on a link
+        const links = document.querySelectorAll('.nav-links a');
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
