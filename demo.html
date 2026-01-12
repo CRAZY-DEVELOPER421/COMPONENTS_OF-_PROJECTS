@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Animations Demo - 100+ Types</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .demo-box {
+            width: 100px;
+            height: 100px;
+            margin: 20px;
+            display: inline-block;
+            cursor: pointer;
+            border-radius: 10px;
+            position: relative;
+            background: #ff6b6b;
+            color: white;
+            text-align: center;
+            line-height: 100px;
+            font-weight: bold;
+        }
+        .demo-box:hover { animation-play-state: paused; }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            background: #4ecdc4;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        button:hover { background: #45b7aa; }
+        h3 { color: white; margin-top: 40px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎉 CSS Animations Demo - Click buttons to see magic!</h1>
+        
+        <h3>1. Bounce Effects</h3>
+        <button onclick="triggerAnim('bounce')">Bounce</button>
+        <button onclick="triggerAnim('bounceIn')">Bounce In</button>
+        <div id="bounceBox" class="demo-box">BOUNCE</div>
+
+        <h3>2. Fade Effects</h3>
+        <button onclick="triggerAnim('fadeIn')">Fade In</button>
+        <button onclick="triggerAnim('fadeOut')">Fade Out</button>
+        <div id="fadeBox" class="demo-box" style="opacity:0;">FADE</div>
+
+        <h3>3. Slide Effects</h3>
+        <button onclick="triggerAnim('slideInLeft')">Slide Left</button>
+        <button onclick="triggerAnim('slideInRight')">Slide Right</button>
+        <div id="slideBox" class="demo-box" style="transform:translateX(-100px);">SLIDE</div>
+
+        <h3>4. Rotate Effects</h3>
+        <button onclick="triggerAnim('rotateIn')">Rotate In</button>
+        <button onclick="triggerAnim('spin')">360° Spin</button>
+        <div id="rotateBox" class="demo-box">ROTATE</div>
+
+        <h3>5. Scale/Zoom</h3>
+        <button onclick="triggerAnim('zoomIn')">Zoom In</button>
+        <button onclick="triggerAnim('pulse')">Pulse</button>
+        <div id="scaleBox" class="demo-box">ZOOM</div>
+
+        <h3>6. Shake Effects</h3>
+        <button onclick="triggerAnim('shake')">Shake</button>
+        <button onclick="triggerAnim('wiggle')">Wiggle</button>
+        <div id="shakeBox" class="demo-box">SHAKE</div>
+
+        <h3>7. Flip Effects</h3>
+        <button onclick="triggerAnim('flip')">Flip</button>
+        <div id="flipBox" class="demo-box">FLIP</div>
+
+        <h3>8. Glow Effects</h3>
+        <button onclick="triggerAnim('glow')">Glow</button>
+        <div id="glowBox" class="demo-box">GLOW</div>
+
+        <h3>9. Loading Spinners</h3>
+        <button onclick="triggerAnim('spinner')">Spinner</button>
+        <div id="spinnerBox" class="demo-box">LOAD</div>
+
+        <h3>10. Text Typewriter</h3>
+        <button onclick="typewriterEffect()">Typewriter</button>
+        <div id="textBox" class="demo-box" style="font-size:12px;line-height:20px;">Watch me type!</div>
+    </div>
+
+    <style>
+        /* BOUNCE ANIMATIONS */
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-30px); }
+            60% { transform: translateY(-15px); }
+        }
+        @keyframes bounceIn {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* FADE ANIMATIONS */
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+
+        /* SLIDE ANIMATIONS */
+        @keyframes slideInLeft { from { transform: translateX(-100%); } to { transform: translateX(0); } }
+        @keyframes slideInRight { from { transform: translateX(100%); } to { transform: translateX(0); } }
+
+        /* ROTATE ANIMATIONS */
+        @keyframes rotateIn {
+            from { transform: rotate(-180deg); opacity: 0; }
+            to { transform: rotate(0); opacity: 1; }
+        }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        /* SCALE ANIMATIONS */
+        @keyframes zoomIn {
+            from { transform: scale(0); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* SHAKE ANIMATIONS */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+
+        /* FLIP ANIMATION */
+        @keyframes flip {
+            0% { transform: perspective(400px) rotateY(0); }
+            50% { transform: perspective(400px) rotateY(180deg); }
+            100% { transform: perspective(400px) rotateY(360deg); }
+        }
+
+        /* GLOW ANIMATION */
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px #ff6b6b; }
+            50% { box-shadow: 0 0 30px #ff6b6b, 0 0 40px #ff6b6b; }
+            100% { box-shadow: 0 0 5px #ff6b6b; }
+        }
+
+        /* SPINNER */
+        @keyframes spinner {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Apply animations when triggered */
+        .animate-bounce { animation: bounce 1s ease-in-out; }
+        .animate-bounceIn { animation: bounceIn 0.8s ease-out; }
+        .animate-fadeIn { animation: fadeIn 1s ease-in; }
+        .animate-fadeOut { animation: fadeOut 1s ease-out; }
+        .animate-slideInLeft { animation: slideInLeft 0.8s ease-out; }
+        .animate-slideInRight { animation: slideInRight 0.8s ease-out; }
+        .animate-rotateIn { animation: rotateIn 1s ease-out; }
+        .animate-spin { animation: spin 2s linear infinite; }
+        .animate-zoomIn { animation: zoomIn 0.8s ease-out; }
+        .animate-pulse { animation: pulse 1.5s infinite; }
+        .animate-shake { animation: shake 0.5s ease-in-out; }
+        .animate-wiggle { animation: wiggle 0.5s ease-in-out; }
+        .animate-flip { animation: flip 1.5s ease-in-out; }
+        .animate-glow { animation: glow 2s infinite; }
+        .animate-spinner { animation: spinner 1s linear infinite; }
+    </style>
+
+    <script>
+        function triggerAnim(type) {
+            const box = document.getElementById(type === 'bounceIn' ? 'bounceBox' : 
+                        type === 'fadeIn' || type === 'fadeOut' ? 'fadeBox' :
+                        type === 'slideInLeft' || type === 'slideInRight' ? 'slideBox' :
+                        type === 'rotateIn' || type === 'spin' ? 'rotateBox' :
+                        type === 'zoomIn' || type === 'pulse' ? 'scaleBox' :
+                        type === 'shake' || type === 'wiggle' ? 'shakeBox' :
+                        type === 'flip' ? 'flipBox' : 'glowBox');
+            
+            box.className = `demo-box animate-${type}`;
+            setTimeout(() => { box.className = 'demo-box'; }, 2000);
+        }
+
+        function typewriterEffect() {
+            const textBox = document.getElementById('textBox');
+            const text = 'Watch me type!';
+            let i = 0;
+            textBox.textContent = '';
+            
+            function type() {
+                if (i < text.length) {
+                    textBox.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(type, 100);
+                }
+            }
+            type();
+        }
+    </script>
+</body>
+</html>
